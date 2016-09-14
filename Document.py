@@ -1,10 +1,10 @@
 class Document:
   
-  def __init__(self, sentences, id, wordcount, linecount, charcount):
+  def __init__(self, sentences):
     self.sentences = sentences
-    self.id = id
+    self.id = #something here
     self.wordcount = getWordCount()
-    self.linecount = linecount
+    self.linecount = getLineCount()
     self.charcount = charcount
     
   def generateWhole():
@@ -15,26 +15,14 @@ class Document:
       return self.wordCount
       
     wordCount = 0
-    currentState = 'WHITESPACE'
     
     for sentence in self.sentences:
-      for char in sentence:
-        if currentState == 'WHITESPACE':
-          if not char.isspace():
-            wordCount += 1
-            currentState = 'WORD'
-        else:   #current state is WORD
-            if char.isspace():
-              currentState = 'WHITESPACE'
+    	wordCount += sentence.wordCount
+            
     return wordCount
     
   def getLineCount():
     if self.lineCount != 0:
       return self.lineCount
       
-    lineCount = 0
-    
-    for sentence in self.sentences:
-      lineCount += 1
-    
-    return lineCount
+    return len(self.sentences)
