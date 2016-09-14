@@ -1,5 +1,7 @@
 class DocumentStream:
-    #stuff
+    
+    def readWhole():
+        
 
 
 
