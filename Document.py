@@ -1,8 +1,12 @@
+from DocumentStream import *
+from Sentence import *
+
 class Document:
   
-  def __init__(self, sentences):
-    self.sentences = sentences
-    self.id = #something here
+  def __init__(self, filename):
+    documentStream = DocumentStream(filename)
+    self.sentences = documentStream.readWhole()
+    self.id = none #something here
     self.wordcount = getWordCount()
     self.linecount = getLineCount()
     self.charcount = charcount
