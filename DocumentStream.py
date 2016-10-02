@@ -48,3 +48,15 @@ class DocumentStream:
         file = open('output.txt', 'w', encoding='utf-8')
         for sentence in sentences:
             file.write(sentence.sentence + '\n')
+
+    def getTitle(self):
+        file = open(self.filename, 'r', encoding='utf-8' )            
+        for line in file:
+            if line[0:7] == 'Title: ':
+                return line[7:]
+
+    def getAuthor(self):
+        file = open(self.filename, 'r', encoding='utf-8' )            
+        for line in file:
+            if line[0:8] == 'Author: ':
+                return line[8:]

@@ -4,7 +4,9 @@ from Sentence import *
 class Document:
     
     def __init__(self, filename):
-        self.filename = filename        
+        self.filename = filename
+        self.title = ''
+        self.author = ''
         self.__sentences = []
         self.__id = None #something here
         self.__wordCount = 0
@@ -41,6 +43,8 @@ class Document:
             print(E.data)
             
         self.setSentences(documentStream.readWhole())
+        self.title = documentStream.getTitle()
+        self.author = documentStream.getAuthor()
         self.setWordCount()
         self.setLineCount()
         self.setCharCount()
