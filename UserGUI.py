@@ -49,8 +49,8 @@ class UserGUI:
         freqMap = stats.createFreqMap(words)
         topWords = stats.topN(freqMap, 10)
         highestFreq = list(topWords.values())
-        plotter = CommandLinePloter(0, len(highestFreq), 0, max(highestFreq))
-        plotter.d2Scatter(highestFreq)
+        plotter = MatPlotPloter()
+        plotter.scatterPlot(highestFreq)
         
 
 root = Tk()
