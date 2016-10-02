@@ -1,5 +1,4 @@
 # CSCI204-Project
 # Dan Kershner
-# Worked with John Venditti
 
-#Main function is in the main file, simply run that module and enter a filename when prompted.
+# Run the UserGUI module then enter a filename in the box and press the generate plot button to show a scatter plot of the file.
