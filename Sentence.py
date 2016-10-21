@@ -1,10 +1,10 @@
 class Sentence:
     
     def __init__(self, sentence):
-        self.sentence = sentence[0:len(sentence)-1]
+        self.sentence = self.parseSentence(sentence)
         self.wordCount = len(self.parseWords())
         self.charCount = len(self.parseChar())
-        self.punctuation = sentence[-1]
+        self.punctuation = ''
 
     def __repr__(self):
         return(self.sentence)
@@ -14,3 +14,12 @@ class Sentence:
         
     def parseChar(self):
         return list(self.sentence)
+
+    def parseSentence(self, sentence):
+        punctuation = sentence[-1]
+        if punctuation == '.' or punctuation == '?' or punctuation == '!' or punctuation == ';':
+            self.punctuation = punctuation
+            return sentence[:-1]
+        else:
+            return sentence
+            

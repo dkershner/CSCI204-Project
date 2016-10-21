@@ -1,6 +1,6 @@
 class Node:
-    next = None
-    data = None
+    next = []
+    data = []
 
 class sllist:
     def __init__(self):
@@ -11,28 +11,28 @@ class sllist:
         return self.size
 
 
-    def add(self, value):
+    def add(self, values):
         if(len(self.elist) > 0):
             newNode = Node()
-            newNode.data = value
-            newNode.next = self.head
+            newNode.data = values
+            newNode.next.append(self.head)
             self.head = newNode
             self.size += 1
 
     def remove(self, value):
         prevNode = None 
         curNode = self.head
-        while curNode != None and curNode.data != value:
+        while curNode != None and curNode.data[0] != value:
             prevNode = curNode
-            curNode = curNode.next
+            curNode = curNode.next[0]
         
         if curNode == None:
             return -1
 
         if curNode == self.head:
-            self.head = curNode.next
+            self.head = curNode.next[0]
         else:
-            prevNode.next = curNode.next
+            prevNode.next[0] = curNode.next[0]
 
     
     def __iter__(self):
@@ -54,5 +54,5 @@ class sllistIterator:
             raise StopIteration
         else:
             item = self.runner.data
-            self.runner = self.runner.next
+            self.runner = self.runner.next[0]
             return item
