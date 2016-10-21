@@ -1,3 +1,6 @@
+from sllist import *
+from SStack import *
+
 class BasicStats:
 
     @staticmethod
@@ -37,3 +40,49 @@ class BasicStats:
             dictionary.pop(key)
 
         return output
+
+    def slinkFreq(aList):
+        ''' This will run in O(n^2) since it has to go through each word and the
+            entire linked list for each word.
+        '''
+        myList = sllist()
+        for x in aList:
+            x.lower()
+            runner = myList.head
+            inserted = False
+            while runner != None:
+                if x == runner.data[0]:
+                    runner.data[1] += 1
+                    inserted = True
+                    break
+                runner = runner.next[0]
+            if not inserted:
+                node = Node()
+                node.data.append(x)
+                node.data.append(1)
+                node.next[0] = myList.head
+                myList.head = node                
+
+        return myList
+
+    def slinkTopN(self, head, num):
+        output = SStack()
+        for x in range(num):
+            runner = head
+            prevRunner = None
+            curMax = head
+            prevMax = None
+            if runner == None:
+                return output
+            while runner != None:
+                if runner.data > curMax.data:
+                    curMax = runner
+                    prevMax = prevRunner
+                runner = runner.next
+                prevRunner = prevRunner.next
+
+            prevMax.next = curMax.next            
+            output.push(curMax.data)            
+
+        return output
+        
