@@ -1,5 +1,6 @@
 from sllist import *
 from SStack import *
+from Heap import *
 
 class BasicStats:
 
@@ -41,6 +42,7 @@ class BasicStats:
 
         return output
 
+    @staticmethod
     def slinkFreq(aList):
         ''' This will run in O(n^2) since it has to go through each word and the
             entire linked list for each word.
@@ -86,3 +88,24 @@ class BasicStats:
 
         return output
         
+    @staticmethod
+    def topNHeap(dictionary, num):
+        heap = MaxHeap()
+        myHeap = []
+        for x in dictionary:
+            node = HeapNode(x, dictionary[x])
+            heap.heapAdd(myHeap, node)
+        output = {}
+        for i in range(num):
+            output += heap.heapRemove(myHeap)
+
+    @staticmethod
+    def bottomNHeap(dictionary, num):
+        heap = MinHeap()
+        myHeap = []
+        for x in dictionary:
+            node = HeapNode(x, dictionary[x])
+            heap.heapAdd(myHeap, node)
+        output = {}
+        for i in range(num):
+            output += heap.heapRemove(myHeap)

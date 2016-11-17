@@ -16,6 +16,8 @@ class TextFilter:
                 self.stripNullCharacters()
             elif x == 'Strip numbers':
                 self.stripNumbers()
+            elif x == 'Filter words':
+                self.filterWords()
             else:
                 print('Invalid filter: ', x)
 
@@ -75,5 +77,15 @@ class TextFilter:
                 sentences.append(toAppend)
         self.document.setSentences(sentences)
 
-
-                
+    def filterWords(self)
+        file = file.open('filterwords.txt', 'r')
+        words = file.readLines()
+        for sentence in self.document.getSentences():
+            newSentence = ''
+            for word in sentence.parseWords():
+                if word not in words:
+                    newSentence += word
+            if newSentence != '':
+                toAppend = Sentence(newSentence)
+                sentences.append(toAppend)
+        self.document.setSentences(sentences)
