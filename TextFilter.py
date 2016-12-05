@@ -1,3 +1,7 @@
+''' Dan Kershner
+    This file has the TextFilter class with an apply method and a method for each
+    possible text filter that can be applied to a document.
+'''
 from Document import *
 from Sentence import *
 
@@ -77,14 +81,15 @@ class TextFilter:
                 sentences.append(toAppend)
         self.document.setSentences(sentences)
 
-    def filterWords(self)
-        file = file.open('filterwords.txt', 'r')
-        words = file.readLines()
+    def filterWords(self):
+        file = open('filterwords.txt', 'r')
+        words = file.read().splitlines()
+        sentences = []
         for sentence in self.document.getSentences():
             newSentence = ''
             for word in sentence.parseWords():
                 if word not in words:
-                    newSentence += word
+                    newSentence += word + ' '
             if newSentence != '':
                 toAppend = Sentence(newSentence)
                 sentences.append(toAppend)

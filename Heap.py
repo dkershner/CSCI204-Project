@@ -1,115 +1,98 @@
-class Heap:
-    def parent(self, heap, index):
-        if len(heap) < index:
-            return
-        elif heap[0] == None:
-            return heap[index // 2]
-        else:
-            return heap[(index-1) // 2]
+''' Dan Kershner
+    This file has a Max and Min heap class with methods including fixUp, add,
+    remove, and fixDown.
+'''
 
-    def leftChild(self, heap, index):
-        if len(heap) < index:
-            return
-        elif heap[0] == None:
-            return heap[2 * index]
-        else:
-            return heap[(2 * index) + 1]
+def exchange(a, i , j):
+    t = a[i]
+    a[i] = a[j]
+    a[j] = t
 
-    def rightChild(self, heap, index):
-        if len(heap) < index:
-            return
-        elif heap[0] == None:
-            return heap[(2 * index) + 1]
-        else:
-            return heap[(2 * index) + 2]
+def parent_1(i):
+    return i // 2
 
-class MinHeap(Heap):
-    def fixUp(heap, node):
-        index = heap.index(node)
-        parent = parent(heap, index)
-        parentIndex = heap.index(parent)
-        if parent == None:
-            return heap
-        elif parent.value < node.value:
-            heap[parentIndex] = node
-            heap[index] = parent
-            return fixUp(heap, node)
-        return heap
+def left_1(i):
+    return 2*i
 
-    def heapAdd(heap, node):
-        if heap == []:
-            heap.append(None)
-        heap.append(node)
-        heap = fixUp(heap, node)
-        return heap
+def right_1(i):
+    return 2*i+1
 
-    def fixDown(heap, index = 1):
-        if heap == []:
-            return
-        left = leftChild(heap, index)
-        leftIndex = heap.index(left)
-        right = rightChild(heap, index)
-        rightIndex = heap.index(right)
-        if left.value > heap[index].value:
-            heap[leftIndex] = heap[index]
-            heap[index] = left
-            return fixDown(heap, leftIndex)
-        elif right.value > heap[index].value:
-            heap[rightIndex] = heap[index]
-            heap[index] = right
-            return fixDown(heap, rightIndex)
-        return heap
+class MinHeap():
+    def __init__(self, n, tree=None, end=0):
+        self.n = n #Size of all storage space
+        self.end = end #Current location in
+        self.tree = tree
+        if self.tree == None:
+            self.tree = [None]*self.n
+            
+    def fixUp(self, a, i, n):
+        while i > 1 and a[parent_1(i)].value > a[i].value:
+            exchange(a,i,parent_1(i))
+            i = parent_1(i)
 
-    def heapRemove(heap):
-        t = heap[1]
-        heap[1] = heap[-1]
-        del heap[-1]
-        heap = fixDown(heap)
-        return t, heap
+    def heapAdd(self, item):
+        self.end +=1
+        if(self.end < self.n):
+            self.tree[self.end] = item
+            self.fixUp(self.tree, self.end, self.end+1)
 
-class MaxHeap(Heap):
-    def fixUp(self, heap, node):
-        index = heap.index(node)
-        parent = self.parent(heap, index)
-        parentIndex = heap.index(parent)
-        if parent == None:
-            return heap
-        elif parent.value > node.value:
-            heap[parentIndex] = node
-            heap[index] = parent
-            return self.fixUp(heap, node)
-        return heap
+    def fixDown(self, a,i, n):
+        while left_1(i) < n:
+            j = left_1(i)
+            if (j+1 < n) and (a[j].value > a[j+1].value):
+                j+=1
+            if not (a[i].value > a[j].value):
+                break
+            exchange(a,i,j)
+            i = j
 
-    def heapAdd(self, heap, node):
-        if heap == []:
-            heap.append(None)
-        heap.append(node)
-        heap = self.fixUp(heap, node)
-        return heap
+    def heapRemove(self):
+        if self.end == 0:
+            return False
+        t = self.tree[1]
+        exchange(self.tree, 1, self.end)
+        self.fixDown(self.tree, 1, self.end)
+        self.end -= 1
+        return t
 
-    def fixDown(self, heap, index = 1):
-        if heap == []:
-            return
-        left = self.leftChild(heap, index)
-        leftIndex = heap.index(left)
-        right = self.rightChild(heap, index)
-        rightIndex = heap.index(right)
-        if left.value < heap[index].value:
-            heap[leftIndex] = heap[index]
-            heap[index] = left
-            return self.fixDown(heap, leftIndex)
-        elif right.value < heap[index].value:
-            heap[rightIndex] = heap[index]
-            heap[index] = right
-            return self.fixDown(heap, rightIndex)
-        return heap
+class MaxHeap():
+    def __init__(self, n, tree=None, end=0):
+        self.n = n #Size of all storage space
+        self.end = end #Current location in
+        self.tree = tree
+        if self.tree == None:
+            self.tree = [None]*self.n
+            
+    def fixUp(self, a, i, n):
+        while i > 1 and a[parent_1(i)].value < a[i].value:
+            exchange(a,i,parent_1(i))
+            i = parent_1(i)
 
-    def heapRemove(self, heap):
-        t = heap[1]
-        heap[1] = heap[-1]
-        del heap[-1]
-        heap = self.fixDown(heap)
-        return t, heap
+    def heapAdd(self, item):
+        self.end +=1
+        if(self.end < self.n):
+            self.tree[self.end] = item
+            self.fixUp(self.tree, self.end, self.end+1)
+
+    def fixDown(self, a,i, n):
+        while left_1(i) < n:
+            j = left_1(i)
+            if (j+1 < n) and (a[j].value < a[j+1].value):
+                j+=1
+            if not (a[i].value < a[j].value):
+                break
+            exchange(a,i,j)
+            i = j
+
+    def heapRemove(self):
+        if self.end == 0:
+            return False
+        t = self.tree[1]
+        exchange(self.tree, 1, self.end)
+        self.fixDown(self.tree, 1, self.end)
+        self.end -= 1
+        return t
+    
 class HeapNode:
     def __init__(self, key, value):
         self.key = key

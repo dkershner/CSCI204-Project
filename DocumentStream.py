@@ -1,3 +1,7 @@
+''' Dan Kershner
+    This file has the Document Stream class which has functions to parse through
+    a file and read it to create a document from.
+'''
 from Sentence import *
 from DocumentStreamError import *
 
@@ -60,3 +64,4 @@ class DocumentStream:
         for line in file:
             if line[0:8] == 'Author: ':
                 return line[8:]
+

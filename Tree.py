@@ -1,3 +1,6 @@
+''' Dan Kershner
+    This file has the Tree class along with the ID3 function (and associated helpers).
+'''
 import math
 
 class Tree:
@@ -5,11 +8,25 @@ class Tree:
         self.root = None
 
     def train(self, data, titles, maxDepth):
-        self.root = ID3(data, titles)
+        self.root = ID3(self.root, data, titles, maxDepth)
         
 
-    def eval(self, data):
-        pass
+    def evaluate(self, data, attributes, currentNode):
+        if currentNode == None:
+            print('There is not a node here.')
+            return None
+        if currentNode.children == []:
+            return currentNode.attribute
+        column = attributes.index(self.root.attribute)
+        myAttribute = data[column]
+        for child in currentNode.children:
+            if child.attribute is int:
+                year = child.attribute
+                if myAttribute >= year-5 and myAttribute <= year+5:
+                    self.evaluate(data, attributes, child)
+            elif child.attribute == myAttribute:
+                self.evaluate(data, attributes, child)
+        self.evaluate(data, attributes, currentNode.children[0])
 
 class TreeNode:
     def __init__(self, attribute):
@@ -84,4 +101,3 @@ def splitData(data, attributes, column):
             children[row[column]] = row[:column] + row[column + 1:]
             
     return children        
-        

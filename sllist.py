@@ -1,8 +1,11 @@
+''' Dan Kershner
+    This file has the linked list class (Sllist) with methods including add and remove.
+'''
 class Node:
     next = []
     data = []
 
-class sllist:
+class Sllist:
     def __init__(self):
         self.head = None
         self.size = 0

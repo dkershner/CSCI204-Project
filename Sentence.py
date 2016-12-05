@@ -1,3 +1,8 @@
+''' Dan Kershner
+    This file has the sentence class with methods to get the individual characters
+    or words out of a sentence.
+'''
+
 class Sentence:
     
     def __init__(self, sentence):

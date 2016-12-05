@@ -1,3 +1,7 @@
+''' Dan Kershner
+    This file has the BasicStats class which includes functions createFreqMap,
+    topN, and bottomN (along with different implementations of these).
+'''
 from sllist import *
 from SStack import *
 from Heap import *
@@ -6,6 +10,9 @@ class BasicStats:
 
     @staticmethod
     def createFreqMap(aList):
+        ''' Returns a dictionary with each key being a unique word in the given
+            list and each value being the number of times that word appears.
+        '''
         dictionary = {}
         for x in aList:
             x.lower()
@@ -17,6 +24,8 @@ class BasicStats:
         return dictionary
 
     def topN(self, dictionary, num):
+        ''' Returns a dictionary of the top N words and their frequencies.
+        '''
         output = {}
         for x in range(num):
             values = list(dictionary.values())
@@ -30,6 +39,8 @@ class BasicStats:
         return output
 
     def bottomN(self, dictionary, num):
+        ''' Returns a dictionary of the bottom N words and their frequencies.
+        '''
         output = {}
         for x in range(num):
             values = list(dictionary.values())
@@ -47,7 +58,7 @@ class BasicStats:
         ''' This will run in O(n^2) since it has to go through each word and the
             entire linked list for each word.
         '''
-        myList = sllist()
+        myList = Sllist()
         for x in aList:
             x.lower()
             runner = myList.head
@@ -90,22 +101,32 @@ class BasicStats:
         
     @staticmethod
     def topNHeap(dictionary, num):
-        heap = MaxHeap()
-        myHeap = []
+        ''' Uses a heap to return a dictionary of the top N words and their frequencies
+        '''
+        heap = MaxHeap(10000)
+        ##print(dictionary)
         for x in dictionary:
             node = HeapNode(x, dictionary[x])
-            heap.heapAdd(myHeap, node)
+            heap.heapAdd(node)
         output = {}
         for i in range(num):
-            output += heap.heapRemove(myHeap)
+            node = heap.heapRemove()
+            output[node.key] = node.value
+
+        return output
 
     @staticmethod
     def bottomNHeap(dictionary, num):
-        heap = MinHeap()
+        ''' Uses a heap to return a dictionary of the bottom N words and their frequencies
+        '''
+        heap = MinHeap(10000)
         myHeap = []
         for x in dictionary:
             node = HeapNode(x, dictionary[x])
-            heap.heapAdd(myHeap, node)
+            heap.heapAdd(node)
         output = {}
         for i in range(num):
-            output += heap.heapRemove(myHeap)
+            node = heap.heapRemove()
+            output[node.key] = node.value
+
+        return output

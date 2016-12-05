@@ -1,3 +1,7 @@
+''' Dan Kershner
+    This file has the Document class with functions to generate a document object
+    from a given file.
+'''
 from DocumentStream import *
 from Sentence import *
 
@@ -6,7 +10,11 @@ class Document:
     def __init__(self, filename):
         self.filename = filename
         self.title = ''
-        self.author = ''
+        self.author = None
+        self.genre = ''
+        self.year = ''
+        self.topN = ''
+        self.bottomN = ''
         self.__sentences = []
         self.__id = None #something here
         self.__wordCount = 0
@@ -43,8 +51,6 @@ class Document:
             print(E.data)
             
         self.setSentences(documentStream.readWhole())
-        self.title = documentStream.getTitle()
-        self.author = documentStream.getAuthor()
         self.setWordCount()
         self.setLineCount()
         self.setCharCount()
